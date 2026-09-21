@@ -105,10 +105,28 @@ async def get_movie(message: types.Message):
     else:
         await message.answer("❌ Ushbu kod bo'yicha hech qanday kino topilmadi.")
 
+from aiohttp import web
+
+# Render port talab qilgani uchun soxta veb-server
+async def handle(request):
+    return web.Response(text="Bot ishlamoqda!")
+
 async def main():
-    logging.basicConfig(level=logging.INFO)
     await db.init_db()
-    await dp.start_polling(bot)
+    
+    # Render beradigan portni olish
+    port = int(os.getenv("PORT", 8080))
+    app = web.Application()
+    app.router.add_get("/", handle)
+    runner = web.AppRunner(app)
+    await runner.setup()
+    site = web.TCPSite(runner, "0.0.0.0", port)
+    
+    # Veb-server va botni birga ishga tushirish
+    await asyncio.gather(
+        site.start(),
+        dp.start_polling(bot)
+    )
 
 if __name__ == "__main__":
     asyncio.run(main())
