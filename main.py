@@ -7,7 +7,7 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from database import Database
 
-TOKEN = "8613565014:AAEiV18aLpag0bW-8iheiJVHt1r-1RSzCoY"
+TOKEN = "8864880879:AAG59lSERBDL7evLK7nsIA9aVj9UkAnyAg4"
 ADMIN_ID = 6328059183  # Shu yerga o'zingizning Telegram ID'ingizni yozing
 
 bot = Bot(token=TOKEN)
